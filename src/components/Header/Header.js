@@ -6,6 +6,7 @@ import Logo from "../Logo";
 import SuperHeader from "../SuperHeader";
 import MobileMenu from "../MobileMenu";
 import Icon from "../Icon";
+import VisuallyHidden from "../VisuallyHidden";
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
@@ -22,23 +23,32 @@ const Header = () => {
     <header>
       <SuperHeader />
       <MainHeader>
-        <Side>
+        <LogoWrapper>
           <Logo />
-        </Side>
-        <Nav>
+        </LogoWrapper>
+        <DesktopNav>
           <NavLink href="/sale">Sale</NavLink>
           <NavLink href="/new">New&nbsp;Releases</NavLink>
           <NavLink href="/men">Men</NavLink>
           <NavLink href="/women">Women</NavLink>
           <NavLink href="/kids">Kids</NavLink>
           <NavLink href="/collections">Collections</NavLink>
-        </Nav>
+        </DesktopNav>
         <MobileNav>
-          <IconButton id="shopping-bag" size={24} />
-          <IconButton id="search" size={24} />
-          <IconButton id="menu" size={24} onClick={toggleMobileMenu} />
+          <ShoppingBagIconButton>
+            <Icon id="shopping-bag" size={24} />
+            <VisuallyHidden>Open cart</VisuallyHidden>
+          </ShoppingBagIconButton>
+          <IconButton>
+            <Icon id="search" size={24} />
+            <VisuallyHidden>Search</VisuallyHidden>
+          </IconButton>
+          <IconButton>
+            <Icon id="menu" size={24} onClick={toggleMobileMenu} />
+            <VisuallyHidden>Menu</VisuallyHidden>
+          </IconButton>
         </MobileNav>
-        <Side />
+        <Filler />
       </MainHeader>
 
       <MobileMenu isOpen={showMobileMenu} onDismiss={closeMobileMenu} />
@@ -46,8 +56,16 @@ const Header = () => {
   );
 };
 
-const IconButton = styled(Icon)`
+const IconButton = styled.button`
   cursor: pointer;
+  background: none;
+  border: none;
+  height: 100%;
+  width: 100%;
+`;
+
+const ShoppingBagIconButton = styled(IconButton)`
+  transform: translateX(-2px);
 `;
 
 const MainHeader = styled.div`
@@ -59,10 +77,16 @@ const MainHeader = styled.div`
 
   @media ${QUERIES.tabletAndSmaller} {
     border-top: 4px solid ${COLORS.gray[900]};
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  @media ${QUERIES.tabletAndSmaller} {
+    padding-inline: 16px;
   }
 `;
 
-const Nav = styled.nav`
+const DesktopNav = styled.nav`
   display: flex;
   gap: 48px;
   margin: 0px 48px;
@@ -77,17 +101,28 @@ const MobileNav = styled.nav`
 
   @media ${QUERIES.tabletAndSmaller} {
     display: flex;
-    gap: clamp(1rem, 3vw + 0.5rem, 2.5rem);
+    gap: 32px;
+  }
+
+  @media ${QUERIES.phoneAndSmaller} {
+    display: flex;
+    gap: 16px;
   }
 `;
 
-const Side = styled.div`
+const LogoWrapper = styled.div`
   flex: 1;
 
   @media ${QUERIES.tabletAndSmaller} {
-    &:last-of-type {
-      display: none;
-    }
+    flex: revert;
+  }
+`;
+
+const Filler = styled.div`
+  flex: 1;
+
+  @media ${QUERIES.tabletAndSmaller} {
+    display: none;
   }
 `;
 
