@@ -11,6 +11,8 @@ export const COLORS = {
   secondary: "hsl(240deg 60% 63%)",
 };
 
+export const BASE_FONT_SIZE = 16;
+
 export const WEIGHTS = {
   normal: 500,
   medium: 600,
@@ -18,13 +20,13 @@ export const WEIGHTS = {
 };
 
 export const BREAKPOINTS = {
-  phone: 37.5,
-  tablet: 59.375,
-  laptop: 81.25,
+  phone: 600,
+  tablet: 950,
+  laptop: 1300,
 };
 
 export const QUERIES = {
-  phone: `(max-width: ${BREAKPOINTS.phone}rem)`,
-  tablet: `(max-width: ${BREAKPOINTS.tablet}rem)`,
-  laptop: `(max-width: ${BREAKPOINTS.laptop}rem)`,
+  phoneAndSmaller: `(max-width: ${BREAKPOINTS.phone / BASE_FONT_SIZE}rem)`,
+  tabletAndSmaller: `(max-width: ${BREAKPOINTS.tablet / BASE_FONT_SIZE}rem)`,
+  laptopAndSmaller: `(max-width: ${BREAKPOINTS.laptop / BASE_FONT_SIZE}rem)`,
 };
